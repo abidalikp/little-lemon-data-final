@@ -44,7 +44,30 @@ export function getSectionListData(data) {
   // The title of each section should be the category.
   // The data property should contain an array of menu items. 
   // Each item has the following properties: "id", "title" and "price"
-  return SECTION_LIST_MOCK_DATA;
+  // console.log(data)
+  let categories = new Set()
+  data.forEach(item => {
+  categories.add(item.category)
+  })
+
+  // console.log(categories)
+
+  let sectionData = []
+  categories.forEach(item => {
+      sectionData.push({title: item, data: []})
+  })
+
+  data.forEach(item => {
+      let pushData = (({id, price, title}) => ({id, price, title}))(item)
+      pushData.id = String(pushData.id)
+      sectionData.filter(sect => sect.title == item.category)
+      [0].data.push(pushData)
+      // console.log(item)
+  })
+
+  console.log(sectionData)
+  return sectionData;
+  // return SECTION_LIST_MOCK_DATA
 }
 
 export function useUpdateEffect(effect, dependencies = []) {
