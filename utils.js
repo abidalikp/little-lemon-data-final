@@ -44,9 +44,12 @@ export function getSectionListData(data) {
   // The title of each section should be the category.
   // The data property should contain an array of menu items. 
   // Each item has the following properties: "id", "title" and "price"
+  if (data.length == 0) return []
+  // if(typeof(data) === "string"){data = JSON.parse(data)}
+
   let categories = new Set()
   data.forEach(item => {
-  categories.add(item.category)
+    categories.add(item.category)
   })
 
   let sectionData = []

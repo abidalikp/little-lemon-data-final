@@ -142,7 +142,7 @@ export default function App() {
       <SectionList
         style={styles.sectionList}
         sections={data}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => (
           <Item title={item.title} price={item.price} />
         )}

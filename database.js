@@ -63,6 +63,17 @@ export function saveMenuItems(menuItems) {
  */
 export async function filterByQueryAndCategories(query, activeCategories) {
   return new Promise((resolve, reject) => {
-    resolve(SECTION_LIST_MOCK_DATA);
+    db.transaction(tx => {
+      tx.executeSql(
+        `select * from menuitems where title like '%${query}%' and category in (${activeCategories.map(item => 
+            `'${item}'`
+          )})`, [], (_, {rows}) => {
+          resolve(rows._array);
+        }, (_, err) => {
+          console.log(err)
+        }
+      )
+    })
+    // resolve(SECTION_LIST_MOCK_DATA);
   });
 }
