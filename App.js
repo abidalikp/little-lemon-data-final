@@ -51,7 +51,6 @@ export default function App() {
         }
       )
       // console.log(finalData)
-      setData(finalData)
     } catch (error) {
       Alert.alert("Err", error.message)
     }

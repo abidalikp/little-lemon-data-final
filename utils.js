@@ -44,13 +44,10 @@ export function getSectionListData(data) {
   // The title of each section should be the category.
   // The data property should contain an array of menu items. 
   // Each item has the following properties: "id", "title" and "price"
-  // console.log(data)
   let categories = new Set()
   data.forEach(item => {
   categories.add(item.category)
   })
-
-  // console.log(categories)
 
   let sectionData = []
   categories.forEach(item => {
@@ -62,10 +59,8 @@ export function getSectionListData(data) {
       pushData.id = String(pushData.id)
       sectionData.filter(sect => sect.title == item.category)
       [0].data.push(pushData)
-      // console.log(item)
   })
 
-  console.log(sectionData)
   return sectionData;
   // return SECTION_LIST_MOCK_DATA
 }
