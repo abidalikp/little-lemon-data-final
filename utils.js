@@ -44,27 +44,27 @@ export function getSectionListData(data) {
   // The title of each section should be the category.
   // The data property should contain an array of menu items. 
   // Each item has the following properties: "id", "title" and "price"
-  if (data.length == 0) return []
-  // if(typeof(data) === "string"){data = JSON.parse(data)}
 
-  let categories = new Set()
-  data.forEach(item => {
-    categories.add(item.category)
+  const dataByCategory = data.reduce((acc, curr) => {
+    const menuItem = {
+      id: curr.id,
+      price: curr.price,
+      title: curr.title
+    }
+    if (acc.hasOwnProperty(curr.category)) acc[curr.category].push(menuItem)
+    else acc[curr.category] = [menuItem]
+    return acc
+  }, {})
+
+  console.log(dataByCategory)
+  const sectionListData = Object.entries(dataByCategory).map(([key, item]) => {
+    return {
+      title: key,
+      data: item
+    }
   })
 
-  let sectionData = []
-  categories.forEach(item => {
-      sectionData.push({title: item, data: []})
-  })
-
-  data.forEach(item => {
-      let pushData = (({id, price, title}) => ({id, price, title}))(item)
-      pushData.id = String(pushData.id)
-      sectionData.filter(sect => sect.title == item.category)
-      [0].data.push(pushData)
-  })
-
-  return sectionData;
+  return sectionListData
   // return SECTION_LIST_MOCK_DATA
 }
 
